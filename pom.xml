@@ -11,6 +11,7 @@
 
     <modules>
         <module>Flight</module>
+        <module>Ticket</module>
     </modules>
 
     <dependencies>
