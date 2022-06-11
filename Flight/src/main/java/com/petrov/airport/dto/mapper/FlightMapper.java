@@ -1,0 +1,11 @@
+package com.petrov.airport.dto.mapper;
+
+import com.petrov.airport.dto.ResponseFlightDTO;
+import com.petrov.airport.entity.Flight;
+
+import java.util.List;
+
+public interface FlightMapper {
+    ResponseFlightDTO flightToMap(Flight flight);
+    List<ResponseFlightDTO> flightsToMap(List<Flight> flights);
+}
