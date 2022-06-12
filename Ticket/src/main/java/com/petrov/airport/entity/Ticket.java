@@ -24,9 +24,11 @@ public class Ticket extends Essence {
     @ToString.Exclude
     private Boolean removed;
     @Column(name = "passenger_id")
-    private Integer passenger;
+    private Integer passengerId;
     @Column(name = "flight_id")
-    private Integer flight;
+    private Integer flightId;
+    @Transient
+    private Flight flight;
 
     @Override
     public boolean equals(Object o) {

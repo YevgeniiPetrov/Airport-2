@@ -10,12 +10,19 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class FlightServiceImpl implements FlightService {
     private FlightRepository flightRepository;
     private FlightMapper flightMapper;
+
+    @Override
+    public ResponseFlightDTO get(int id) {
+        Optional<Flight> optionalFlight = flightRepository.get(id);
+        return optionalFlight.map(ticket -> flightMapper.flightToMap(ticket)).orElse(null);
+    }
 
     @Override
     public List<ResponseFlightDTO> getFlightsBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo) {
