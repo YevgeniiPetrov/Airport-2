@@ -1,14 +1,17 @@
 package com.petrov.airport.controller.impl;
 
 import com.petrov.airport.controller.FlightController;
+import com.petrov.airport.dto.RequestEntityDTO;
 import com.petrov.airport.dto.ResponseFlightDTO;
 import com.petrov.airport.service.FlightService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +20,12 @@ import java.util.List;
 @AllArgsConstructor
 public class FlightControllerImpl implements FlightController {
     private FlightService flightService;
+
+    @Override
+    @GetMapping("/flight/get/")
+    public ResponseFlightDTO get(@RequestParam int id) {
+        return flightService.get(id);
+    }
 
     @Override
     @GetMapping("/flight/find/")

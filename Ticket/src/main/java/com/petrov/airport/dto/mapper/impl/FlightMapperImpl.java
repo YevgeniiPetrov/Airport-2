@@ -9,9 +9,6 @@ import com.petrov.airport.entity.Flight;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 @AllArgsConstructor
 public class FlightMapperImpl implements FlightMapper {
@@ -27,14 +24,5 @@ public class FlightMapperImpl implements FlightMapper {
                 .route(routeMapper.routeToMap(flight.getRoute()))
                 .state(stateMapper.stateToMap(flight.getState()))
                 .build();
-    }
-
-    @Override
-    public List<ResponseFlightDTO> flightsToMap(List<Flight> flights) {
-        List<ResponseFlightDTO> flightDTOList = new ArrayList<>();
-        flights.stream()
-                .map(this::flightToMap)
-                .forEach(flightDTOList::add);
-        return flightDTOList;
     }
 }
