@@ -25,9 +25,11 @@ hs_err_pid*
 /out/
 /Flight/out/
 /Ticket/out/
+/Passenger/out/
 /target/
 /Flight/target/
 /Ticket/target/
+/Passenger/target/
 .idea/
 *.iml
 *.xml

@@ -4,6 +4,7 @@ import com.petrov.airport.configuration.database.DataBase;
 import com.petrov.airport.dao.FlightDAO;
 import com.petrov.airport.entity.Flight;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
@@ -15,14 +16,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Getter
 @AllArgsConstructor
 public class FlightDAOImpl implements FlightDAO {
     private DataBase<Flight> dataBase;
-
-    @Override
-    public DataBase<Flight> getDataBase() {
-        return dataBase;
-    }
 
     @Override
     public Optional<Flight> get(int id) {
