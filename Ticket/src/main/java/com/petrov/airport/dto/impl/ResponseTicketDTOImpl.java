@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor

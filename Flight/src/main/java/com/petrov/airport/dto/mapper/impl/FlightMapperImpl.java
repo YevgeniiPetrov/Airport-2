@@ -1,6 +1,7 @@
 package com.petrov.airport.dto.mapper.impl;
 
 import com.petrov.airport.dto.ResponseFlightDTO;
+import com.petrov.airport.dto.impl.ResponseFlightDTOImpl;
 import com.petrov.airport.dto.mapper.FlightMapper;
 import com.petrov.airport.dto.mapper.RouteMapper;
 import com.petrov.airport.dto.mapper.StateMapper;
@@ -14,18 +15,18 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class FlightMapperImpl implements FlightMapper {
-    private ResponseFlightDTO responseFlightDTO;
     private RouteMapper routeMapper;
     private StateMapper stateMapper;
 
     @Override
     public ResponseFlightDTO flightToMap(Flight flight) {
-        responseFlightDTO.setId(flight.getId());
-        responseFlightDTO.setDeparture(flight.getDeparture());
-        responseFlightDTO.setDuration(flight.getDuration());
-        responseFlightDTO.setRoute(routeMapper.routeToMap(flight.getRoute()));
-        responseFlightDTO.setState(stateMapper.stateToMap(flight.getState()));
-        return responseFlightDTO;
+        return new ResponseFlightDTOImpl().builder()
+                .id(flight.getId())
+                .departure(flight.getDeparture())
+                .duration(flight.getDuration())
+                .route(routeMapper.routeToMap(flight.getRoute()))
+                .state(stateMapper.stateToMap(flight.getState()))
+                .build();
     }
 
     @Override
