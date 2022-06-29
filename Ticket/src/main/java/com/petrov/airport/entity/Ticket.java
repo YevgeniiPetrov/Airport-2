@@ -29,6 +29,8 @@ public class Ticket extends Essence {
     private Integer flightId;
     @Transient
     private Flight flight;
+    @Transient
+    private Passenger passenger;
 
     @Override
     public boolean equals(Object o) {

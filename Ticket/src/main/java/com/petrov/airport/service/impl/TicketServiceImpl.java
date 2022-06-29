@@ -5,6 +5,7 @@ import com.petrov.airport.dto.ResponseCompleted;
 import com.petrov.airport.dto.ResponseTicketDTO;
 import com.petrov.airport.dto.mapper.TicketMapper;
 import com.petrov.airport.entity.Flight;
+import com.petrov.airport.entity.Passenger;
 import com.petrov.airport.entity.Ticket;
 import com.petrov.airport.repository.TicketRepository;
 import com.petrov.airport.service.TicketService;
@@ -28,7 +29,10 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = ticketRepository.get(id).get();
         ResponseEntity<Flight> flightResponseEntity = restTemplate.getForEntity(
                 "http://localhost:8081/flight/get/?id=" + ticket.getFlightId(), Flight.class);
+        ResponseEntity<Passenger> passengerResponseEntity = restTemplate.getForEntity(
+                "http://localhost:8083/passenger/get/?id=" + ticket.getPassengerId(), Passenger.class);
         ticket.setFlight(flightResponseEntity.getBody());
+        ticket.setPassenger(passengerResponseEntity.getBody());
         return ticketMapper.ticketToMap(ticket);
     }
 

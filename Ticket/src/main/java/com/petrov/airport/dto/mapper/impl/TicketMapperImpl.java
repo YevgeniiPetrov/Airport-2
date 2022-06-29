@@ -4,6 +4,7 @@ import com.petrov.airport.dto.RequestTicketDTO;
 import com.petrov.airport.dto.ResponseTicketDTO;
 import com.petrov.airport.dto.impl.ResponseTicketDTOImpl;
 import com.petrov.airport.dto.mapper.FlightMapper;
+import com.petrov.airport.dto.mapper.PassengerMapper;
 import com.petrov.airport.dto.mapper.TicketMapper;
 import com.petrov.airport.entity.Ticket;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class TicketMapperImpl implements TicketMapper {
     private FlightMapper flightMapper;
+    private PassengerMapper passengerMapper;
 
     @Override
     public ResponseTicketDTO ticketToMap(Ticket ticket) {
@@ -20,7 +22,7 @@ public class TicketMapperImpl implements TicketMapper {
                 .id(ticket.getId())
                 .creationDate(ticket.getCreationDate())
                 .place(ticket.getPlace())
-                .passenger(ticket.getPassengerId())
+                .passenger(passengerMapper.passengerToMap(ticket.getPassenger()))
                 .flight(flightMapper.flightToMap(ticket.getFlight()))
                 .build();
     }

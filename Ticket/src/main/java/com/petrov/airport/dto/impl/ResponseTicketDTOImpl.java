@@ -1,6 +1,7 @@
 package com.petrov.airport.dto.impl;
 
 import com.petrov.airport.dto.ResponseFlightDTO;
+import com.petrov.airport.dto.ResponsePassengerDTO;
 import com.petrov.airport.dto.ResponseTicketDTO;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,6 @@ public class ResponseTicketDTOImpl implements ResponseTicketDTO {
     private Integer id;
     private LocalDateTime creationDate;
     private Integer place;
-    private Integer passenger;
+    private ResponsePassengerDTO passenger;
     private ResponseFlightDTO flight;
 }
