@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class RouteMapperImpl implements RouteMapper {
     @Override
     public ResponseRouteDTO routeToMap(Route route) {
-        return new ResponseRouteDTOImpl().builder()
+        return ResponseRouteDTOImpl.builder()
                 .id(route.getId())
                 .from(route.getFrom())
                 .to(route.getTo())

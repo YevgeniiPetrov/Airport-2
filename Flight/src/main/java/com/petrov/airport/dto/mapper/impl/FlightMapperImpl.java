@@ -1,5 +1,6 @@
 package com.petrov.airport.dto.mapper.impl;
 
+import com.petrov.airport.dto.RequestEntityDTO;
 import com.petrov.airport.dto.ResponseFlightDTO;
 import com.petrov.airport.dto.impl.ResponseFlightDTOImpl;
 import com.petrov.airport.dto.mapper.FlightMapper;
@@ -20,7 +21,7 @@ public class FlightMapperImpl implements FlightMapper {
 
     @Override
     public ResponseFlightDTO flightToMap(Flight flight) {
-        return new ResponseFlightDTOImpl().builder()
+        return ResponseFlightDTOImpl.builder()
                 .id(flight.getId())
                 .departure(flight.getDeparture())
                 .duration(flight.getDuration())
@@ -36,5 +37,12 @@ public class FlightMapperImpl implements FlightMapper {
                 .map(this::flightToMap)
                 .forEach(flightDTOList::add);
         return flightDTOList;
+    }
+
+    @Override
+    public Flight mapToFlight(RequestEntityDTO requestEntityDTO) {
+        return Flight.builder()
+                .id(requestEntityDTO.getId())
+                .build();
     }
 }

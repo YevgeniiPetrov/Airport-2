@@ -1,8 +1,10 @@
 package com.petrov.airport.service.impl;
 
+import com.petrov.airport.dto.RequestEntityDTO;
 import com.petrov.airport.dto.RequestTicketDTO;
 import com.petrov.airport.dto.ResponseCompleted;
 import com.petrov.airport.dto.ResponseTicketDTO;
+import com.petrov.airport.dto.mapper.FlightMapper;
 import com.petrov.airport.dto.mapper.TicketMapper;
 import com.petrov.airport.entity.Flight;
 import com.petrov.airport.entity.Passenger;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 public class TicketServiceImpl implements TicketService {
     private TicketRepository ticketRepository;
     private TicketMapper ticketMapper;
+    private FlightMapper flightMapper;
     private ResponseCompleted responseCompleted;
     private RestTemplate restTemplate;
 
@@ -40,6 +43,19 @@ public class TicketServiceImpl implements TicketService {
     public ResponseCompleted add(RequestTicketDTO requestTicketDTO) {
         setTicketCreationDate(requestTicketDTO);
         ticketRepository.add(ticketMapper.mapToTicket(requestTicketDTO));
+        return responseCompleted;
+    }
+
+    @Override
+    public ResponseCompleted delete(RequestEntityDTO requestEntityDTO) {
+        ticketRepository.delete(ticketMapper.mapToTicket(requestEntityDTO));
+        return responseCompleted;
+    }
+
+    @Override
+    public ResponseCompleted deleteAllByFlight(RequestEntityDTO requestEntityDTO) {
+        ticketRepository.getAllByFlight(flightMapper.mapToFlight(requestEntityDTO))
+                .forEach(ticketRepository::delete);
         return responseCompleted;
     }
 
