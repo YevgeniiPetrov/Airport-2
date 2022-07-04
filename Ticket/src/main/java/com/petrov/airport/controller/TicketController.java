@@ -1,5 +1,6 @@
 package com.petrov.airport.controller;
 
+import com.petrov.airport.dto.RequestEntityDTO;
 import com.petrov.airport.dto.RequestTicketDTO;
 import com.petrov.airport.dto.ResponseCompleted;
 import com.petrov.airport.dto.ResponseTicketDTO;
@@ -11,4 +12,6 @@ import javax.validation.Valid;
 public interface TicketController {
     ResponseTicketDTO get(@RequestParam int id);
     ResponseCompleted create(@RequestBody @Valid RequestTicketDTO requestTicketDTO);
+    ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO);
+    ResponseCompleted deleteAllByFlight(@RequestBody @Valid RequestEntityDTO requestEntityDTO);
 }

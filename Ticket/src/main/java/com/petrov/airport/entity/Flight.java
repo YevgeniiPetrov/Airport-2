@@ -1,5 +1,6 @@
 package com.petrov.airport.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 
+@Builder
 @Getter
 @ToString
 public class Flight {

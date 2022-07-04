@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class StateMapperImpl implements StateMapper {
     @Override
     public ResponseStateDTO stateToMap(State state) {
-        return new ResponseStateDTOImpl().builder()
+        return ResponseStateDTOImpl.builder()
                 .id(state.getId())
                 .title(state.getTitle())
                 .build();

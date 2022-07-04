@@ -1,5 +1,6 @@
 package com.petrov.airport.dto.mapper.impl;
 
+import com.petrov.airport.dto.RequestEntityDTO;
 import com.petrov.airport.dto.RequestTicketDTO;
 import com.petrov.airport.dto.ResponseTicketDTO;
 import com.petrov.airport.dto.impl.ResponseTicketDTOImpl;
@@ -34,6 +35,13 @@ public class TicketMapperImpl implements TicketMapper {
                 .place(requestTicketDTO.getPlace())
                 .passengerId(requestTicketDTO.getPassenger().getId())
                 .flightId(requestTicketDTO.getFlight().getId())
+                .build();
+    }
+
+    @Override
+    public Ticket mapToTicket(RequestEntityDTO requestEntityDTO) {
+        return Ticket.builder()
+                .id(requestEntityDTO.getId())
                 .build();
     }
 }
