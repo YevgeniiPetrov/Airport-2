@@ -1,8 +1,6 @@
 package com.petrov.airport.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,6 +9,8 @@ import java.util.Objects;
 @Builder
 @Getter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Flight {
     private Integer id;
     private LocalDateTime departure;

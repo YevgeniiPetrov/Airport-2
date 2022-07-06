@@ -1,6 +1,7 @@
 package com.petrov.airport.service.impl;
 
 import com.petrov.airport.dto.RequestEntityDTO;
+import com.petrov.airport.dto.RequestFlightChangeDeparture;
 import com.petrov.airport.dto.ResponseCompleted;
 import com.petrov.airport.dto.ResponseFlightDTO;
 import com.petrov.airport.dto.mapper.FlightMapper;
@@ -47,8 +48,16 @@ public class FlightServiceImpl implements FlightService {
         HttpEntity<Object> httpEntity = new HttpEntity<>(headers);
         restTemplate.exchange(
                 "http://localhost:8082/tickets/delete/flight", HttpMethod.DELETE,
-                httpEntity, String.class);
+                httpEntity, responseCompleted.getClass());
         flightRepository.delete(flight);
+        return responseCompleted;
+    }
+
+    @Override
+    public ResponseCompleted update(RequestFlightChangeDeparture requestFlightChangeDeparture) {
+        Flight flight = flightRepository.get(requestFlightChangeDeparture.getId()).get();
+        flight.setDeparture(requestFlightChangeDeparture.getDeparture());
+        flightRepository.update(flight);
         return responseCompleted;
     }
 }

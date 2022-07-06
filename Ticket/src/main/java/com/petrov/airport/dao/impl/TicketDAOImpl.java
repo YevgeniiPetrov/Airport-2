@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Query;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,27 @@ public class TicketDAOImpl implements TicketDAO {
                     .append("where obj.flightId = ")
                     .append(flight.getId());
             Query query = session.createQuery(queryStr.toString());
+            tickets = query.getResultList();
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tickets = new ArrayList<>();
+        }
+        return tickets;
+    }
+
+    @Override
+    public List<Ticket> getAllBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        List<Ticket> tickets;
+        try (Session session = dataBase.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            StringBuilder queryStr = new StringBuilder()
+                    .append("select t ")
+                    .append("from Ticket t ")
+                    .append("where t.creationDate between :dateFrom and :dateTo");
+            Query query = session.createQuery(queryStr.toString());
+            query.setParameter("dateFrom", dateFrom);
+            query.setParameter("dateTo", dateTo);
             tickets = query.getResultList();
             transaction.commit();
         } catch (Exception e) {

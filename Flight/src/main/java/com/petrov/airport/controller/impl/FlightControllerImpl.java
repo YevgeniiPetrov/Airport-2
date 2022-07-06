@@ -2,6 +2,7 @@ package com.petrov.airport.controller.impl;
 
 import com.petrov.airport.controller.FlightController;
 import com.petrov.airport.dto.RequestEntityDTO;
+import com.petrov.airport.dto.RequestFlightChangeDeparture;
 import com.petrov.airport.dto.ResponseCompleted;
 import com.petrov.airport.dto.ResponseFlightDTO;
 import com.petrov.airport.service.FlightService;
@@ -37,5 +38,11 @@ public class FlightControllerImpl implements FlightController {
     @DeleteMapping("/flight/delete")
     public ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO) {
         return flightService.delete(requestEntityDTO);
+    }
+
+    @Override
+    @PostMapping("/flight/update")
+    public ResponseCompleted update(@RequestBody @Valid RequestFlightChangeDeparture requestFlightChangeDeparture) {
+        return flightService.update(requestFlightChangeDeparture);
     }
 }
