@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +32,11 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseTicketDTO get(int id) {
         Ticket ticket = ticketRepository.get(id).get();
+        return get(ticket);
+    }
+
+    @Override
+    public ResponseTicketDTO get(Ticket ticket) {
         ResponseEntity<Flight> flightResponseEntity = restTemplate.getForEntity(
                 "http://localhost:8081/flight/get/?id=" + ticket.getFlightId(), Flight.class);
         ResponseEntity<Passenger> passengerResponseEntity = restTemplate.getForEntity(
@@ -57,6 +64,14 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.getAllByFlight(flightMapper.mapToFlight(requestEntityDTO))
                 .forEach(ticketRepository::delete);
         return responseCompleted;
+    }
+
+    @Override
+    public List<ResponseTicketDTO> getTicketsBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        List<Ticket> tickets = ticketRepository.getAllBetweenDates(dateFrom, dateTo);
+        return tickets.stream()
+                .map(this::get)
+                .collect(Collectors.toList());
     }
 
     private void setTicketCreationDate(RequestTicketDTO requestTicketDTO) {

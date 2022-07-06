@@ -8,6 +8,7 @@ import com.petrov.airport.repository.TicketRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -23,5 +24,10 @@ public class TicketRepositoryImpl implements TicketRepository {
     @Override
     public List<Ticket> getAllByFlight(Flight flight) {
         return ticketDAO.getAllByFlight(flight);
+    }
+
+    @Override
+    public List<Ticket> getAllBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        return ticketDAO.getAllBetweenDates(dateFrom, dateTo);
     }
 }

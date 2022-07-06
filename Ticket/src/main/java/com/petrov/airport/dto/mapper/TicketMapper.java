@@ -5,6 +5,8 @@ import com.petrov.airport.dto.RequestTicketDTO;
 import com.petrov.airport.dto.ResponseTicketDTO;
 import com.petrov.airport.entity.Ticket;
 
+import java.util.List;
+
 public interface TicketMapper {
     ResponseTicketDTO ticketToMap(Ticket ticket);
     Ticket mapToTicket(RequestTicketDTO requestTicketDTO);
