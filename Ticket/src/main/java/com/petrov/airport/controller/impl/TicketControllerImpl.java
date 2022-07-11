@@ -33,6 +33,12 @@ public class TicketControllerImpl implements TicketController {
     }
 
     @Override
+    @PostMapping("/tickets/create")
+    public ResponseCompleted create(@RequestBody @Valid List<RequestTicketDTO> requestTicketDTOList) {
+        return ticketService.add(requestTicketDTOList);
+    }
+
+    @Override
     @DeleteMapping("/ticket/delete")
     public ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO) {
         return ticketService.delete(requestEntityDTO);
