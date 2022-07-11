@@ -13,6 +13,7 @@ public interface TicketService {
     ResponseTicketDTO get(int id);
     ResponseTicketDTO get(Ticket ticket);
     ResponseCompleted add(RequestTicketDTO requestTicketDTO);
+    ResponseCompleted add(List<RequestTicketDTO> requestTicketDTOList);
     ResponseCompleted delete(RequestEntityDTO requestEntityDTO);
     ResponseCompleted deleteAllByFlight(RequestEntityDTO requestEntityDTO);
     List<ResponseTicketDTO> getTicketsBetweenDates(LocalDateTime dateFrom, LocalDateTime dateTo);

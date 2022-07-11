@@ -54,6 +54,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public ResponseCompleted add(List<RequestTicketDTO> requestTicketDTOList) {
+        requestTicketDTOList.forEach(this::add);
+        return responseCompleted;
+    }
+
+    @Override
     public ResponseCompleted delete(RequestEntityDTO requestEntityDTO) {
         ticketRepository.delete(ticketMapper.mapToTicket(requestEntityDTO));
         return responseCompleted;

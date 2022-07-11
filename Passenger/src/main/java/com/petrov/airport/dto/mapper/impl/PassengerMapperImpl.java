@@ -1,16 +1,21 @@
 package com.petrov.airport.dto.mapper.impl;
 
-import com.petrov.airport.dto.RequestPassengerDTO;
-import com.petrov.airport.dto.ResponsePassengerDTO;
+import com.petrov.airport.dto.*;
 import com.petrov.airport.dto.impl.ResponsePassengerDTOImpl;
+import com.petrov.airport.dto.mapper.EntityMapper;
 import com.petrov.airport.dto.mapper.PassengerMapper;
 import com.petrov.airport.entity.Passenger;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
-@NoArgsConstructor
+@AllArgsConstructor
 public class PassengerMapperImpl implements PassengerMapper {
+    private EntityMapper entityMapper;
+
     @Override
     public ResponsePassengerDTO passengerToMap(Passenger passenger) {
         return ResponsePassengerDTOImpl.builder()
@@ -29,5 +34,18 @@ public class PassengerMapperImpl implements PassengerMapper {
                 .birthDate(requestPassengerDTO.getBirthDate())
                 .passport(requestPassengerDTO.getPassport())
                 .build();
+    }
+
+    @Override
+    public List<RequestTicketDTO> mapToMap(Passenger passenger, RequestPassengerTicketsDTO requestPassengerTicketsDTO) {
+        List<RequestTicketDTO> ticketDTOList = new ArrayList<>();
+        for (RequestPassengerTicketDTO requestPassengerTicketDTO : requestPassengerTicketsDTO.getTickets()) {
+            ticketDTOList.add(RequestTicketDTO.builder()
+                    .place(requestPassengerTicketDTO.getPlace())
+                    .passenger(entityMapper.integerToMap(passenger.getId()))
+                    .flight(requestPassengerTicketDTO.getFlight())
+                    .build());
+        }
+        return ticketDTOList;
     }
 }

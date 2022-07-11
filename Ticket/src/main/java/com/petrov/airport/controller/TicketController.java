@@ -15,6 +15,7 @@ import java.util.List;
 public interface TicketController {
     ResponseTicketDTO get(@RequestParam int id);
     ResponseCompleted create(@RequestBody @Valid RequestTicketDTO requestTicketDTO);
+    ResponseCompleted create(@RequestBody @Valid List<RequestTicketDTO> requestTicketDTOList);
     ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO);
     ResponseCompleted deleteAllByFlight(@RequestBody @Valid RequestEntityDTO requestEntityDTO);
     List<ResponseTicketDTO> getTicketsBetweenDates(@RequestParam @NotNull LocalDateTime dateFrom,
