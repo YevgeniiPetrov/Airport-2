@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -35,5 +36,11 @@ public class PassengerControllerImpl implements PassengerController {
     @DeleteMapping("/passenger/delete")
     public ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO) {
         return passengerService.delete(requestEntityDTO);
+    }
+
+    @Override
+    @GetMapping("/passenger/get/terminal")
+    public List<ResponsePassengerDTO> getAllByTerminal(@RequestParam int id) {
+        return ;
     }
 }
