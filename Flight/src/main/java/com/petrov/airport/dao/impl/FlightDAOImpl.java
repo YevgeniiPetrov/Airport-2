@@ -3,6 +3,7 @@ package com.petrov.airport.dao.impl;
 import com.petrov.airport.configuration.database.DataBase;
 import com.petrov.airport.dao.FlightDAO;
 import com.petrov.airport.entity.Flight;
+import com.petrov.airport.entity.Route;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.hibernate.Session;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @Getter
@@ -47,9 +49,15 @@ public class FlightDAOImpl implements FlightDAO {
             transaction.commit();
             session.close();
         } catch (Exception e) {
-            e.printStackTrace();
             list = new ArrayList<>();
         }
         return list;
+    }
+
+    @Override
+    public List<Flight> getAllByRoute(Route route) {
+        return getAll().stream()
+                .filter(flight -> flight.getId().equals(route.getId()))
+                .collect(Collectors.toList());
     }
 }

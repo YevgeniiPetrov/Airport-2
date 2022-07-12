@@ -41,6 +41,12 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+    public ResponseCompleted delete(Flight flight) {
+        flightRepository.delete(flight);
+        return responseCompleted;
+    }
+
+    @Override
     public ResponseCompleted delete(RequestEntityDTO requestEntityDTO) {
         Flight flight = flightRepository.get(requestEntityDTO.getId()).get();
         Map<String, Integer> headers = new HashMap<>();
@@ -49,8 +55,7 @@ public class FlightServiceImpl implements FlightService {
         restTemplate.exchange(
                 "http://localhost:8082/tickets/delete/flight", HttpMethod.DELETE,
                 httpEntity, responseCompleted.getClass());
-        flightRepository.delete(flight);
-        return responseCompleted;
+        return delete(flight);
     }
 
     @Override
