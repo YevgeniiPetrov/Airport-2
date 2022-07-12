@@ -40,4 +40,11 @@ public class PassengerServiceImpl implements PassengerService {
         return restTemplate.postForObject(
                 "http://localhost:8082/tickets/create", requestTicketDTOList, responseCompleted.getClass());
     }
+
+    @Override
+    public ResponseCompleted delete(RequestEntityDTO requestEntityDTO) {
+        Passenger passenger = passengerRepository.get(requestEntityDTO.getId()).get();
+        passengerRepository.delete(passenger);
+        return responseCompleted;
+    }
 }

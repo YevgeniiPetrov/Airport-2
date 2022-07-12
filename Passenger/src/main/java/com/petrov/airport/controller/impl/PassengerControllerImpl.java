@@ -1,10 +1,7 @@
 package com.petrov.airport.controller.impl;
 
 import com.petrov.airport.controller.PassengerController;
-import com.petrov.airport.dto.RequestPassengerDTO;
-import com.petrov.airport.dto.RequestPassengerTicketsDTO;
-import com.petrov.airport.dto.ResponseCompleted;
-import com.petrov.airport.dto.ResponsePassengerDTO;
+import com.petrov.airport.dto.*;
 import com.petrov.airport.service.PassengerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,5 +29,11 @@ public class PassengerControllerImpl implements PassengerController {
     @PostMapping("/passenger/tickets/create")
     public ResponseCompleted createTickets(@RequestBody @Valid RequestPassengerTicketsDTO requestPassengerTicketsDTO) {
         return passengerService.addTickets(requestPassengerTicketsDTO);
+    }
+
+    @Override
+    @DeleteMapping("/passenger/delete")
+    public ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO) {
+        return passengerService.delete(requestEntityDTO);
     }
 }
