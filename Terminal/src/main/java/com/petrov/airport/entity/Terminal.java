@@ -21,12 +21,7 @@ public class Terminal extends Essence {
     @ToString.Exclude
     private Boolean removed;
     private String title;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "terminal_flight",
-            joinColumns = @JoinColumn(name = "terminal_id"),
-            inverseJoinColumns = @JoinColumn(name = "flight_id")
-    )
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "terminal")
     @ToString.Exclude
     private List<Flight> flights;
 

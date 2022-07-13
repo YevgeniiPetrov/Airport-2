@@ -22,15 +22,10 @@ public class Flight extends Essence {
     @Transient
     @ToString.Exclude
     private Boolean removed;
-    @ToString.Exclude
     @Column(name = "terminal_id")
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "terminal_flight",
-            joinColumns = @JoinColumn(name = "flight_id"),
-            inverseJoinColumns = @JoinColumn(name = "terminal_id")
-    )
-    private List<Terminal> terminals;
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Terminal> terminal;
 
     @Override
     public boolean equals(Object o) {
