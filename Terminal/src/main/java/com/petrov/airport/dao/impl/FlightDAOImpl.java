@@ -1,53 +1,51 @@
 package com.petrov.airport.dao.impl;
 
 import com.petrov.airport.configuration.database.DataBase;
-import com.petrov.airport.dao.TerminalDAO;
+import com.petrov.airport.dao.FlightDAO;
 import com.petrov.airport.entity.Flight;
-import com.petrov.airport.entity.Terminal;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Component
 @AllArgsConstructor
-public class TerminalDAOImpl implements TerminalDAO {
-    private DataBase<Terminal> dataBase;
+public class FlightDAOImpl implements FlightDAO {
+    private DataBase<Flight> dataBase;
 
     @Override
-    public DataBase<Terminal> getDataBase() {
+    public DataBase<Flight> getDataBase() {
         return dataBase;
     }
 
     @Override
-    public Optional<Terminal> get(int id) {
-        return dataBase.get(id, Terminal.class);
+    public Optional<Flight> get(int id) {
+        return dataBase.get(id, Flight.class);
     }
 
     @Override
-    public List<Terminal> getAll() {
-        return dataBase.getAll(Terminal.class);
+    public List<Flight> getAll() {
+        return dataBase.getAll(Flight.class);
     }
 
     @Override
-    public Optional<Terminal> getWithFlights(int id) {
+    public Optional<Flight> getWithTerminals(int id) {
         Session session = dataBase.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         StringBuilder queryStr = new StringBuilder()
                 .append("select distinct obj from ")
-                .append(Terminal.class.getSimpleName())
-                .append(" obj left join fetch obj.flights f ")
+                .append(Flight.class.getSimpleName())
+                .append(" obj left join fetch obj.terminals t ")
                 .append("where obj.id = :id");
         Query query = session.createQuery(queryStr.toString());
         query.setParameter("id", id);
-        Terminal terminal = (Terminal) query.getSingleResult();
+        Flight flight = (Flight) query.getSingleResult();
         transaction.commit();
         session.close();
-        return Optional.ofNullable(terminal);
+        return Optional.ofNullable(flight);
     }
 }

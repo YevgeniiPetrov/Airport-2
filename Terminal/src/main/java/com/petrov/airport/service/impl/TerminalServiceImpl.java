@@ -14,6 +14,6 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public List<Integer> getAllFlightIds(int id) {
-        return terminalRepository.;
+        return null;
     }
 }

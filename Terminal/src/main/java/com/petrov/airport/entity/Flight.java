@@ -13,22 +13,24 @@ import java.util.Objects;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Terminal extends Essence {
+@Table(name = "terminal_flight")
+public class Flight extends Essence {
+    @Column(name = "flight_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private Integer id;
+    @Transient
     @ToString.Exclude
     private Boolean removed;
-    private String title;
+    @ToString.Exclude
+    @Column(name = "terminal_id")
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "terminal_flight",
-            joinColumns = @JoinColumn(name = "terminal_id"),
-            inverseJoinColumns = @JoinColumn(name = "flight_id")
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "terminal_id")
     )
-    @ToString.Exclude
-    private List<Flight> flights;
+    private List<Terminal> terminals;
 
     @Override
     public boolean equals(Object o) {
@@ -38,8 +40,8 @@ public class Terminal extends Essence {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Terminal terminal = (Terminal) o;
-        return Objects.equals(id, terminal.id);
+        Flight flight = (Flight) o;
+        return Objects.equals(id, flight.id);
     }
 
     @Override

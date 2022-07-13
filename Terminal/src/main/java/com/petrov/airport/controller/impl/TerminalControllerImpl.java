@@ -16,6 +16,6 @@ public class TerminalControllerImpl implements TerminalController {
     @Override
     @GetMapping("/terminal/flights/get")
     public List<Integer> getAllFlightIds(int id) {
-        return terminalService.;
+        return null;
     }
 }
