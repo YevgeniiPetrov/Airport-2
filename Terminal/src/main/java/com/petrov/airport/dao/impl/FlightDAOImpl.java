@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
@@ -34,18 +35,24 @@ public class FlightDAOImpl implements FlightDAO {
 
     @Override
     public Optional<Flight> getWithTerminals(int id) {
-        Session session = dataBase.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        StringBuilder queryStr = new StringBuilder()
-                .append("select distinct obj from ")
-                .append(Flight.class.getSimpleName())
-                .append(" obj left join fetch obj.terminals t ")
-                .append("where obj.id = :id");
-        Query query = session.createQuery(queryStr.toString());
-        query.setParameter("id", id);
-        Flight flight = (Flight) query.getSingleResult();
-        transaction.commit();
-        session.close();
+        Flight flight = null;
+        try (Session session = dataBase.getSessionFactory().openSession();) {
+            Transaction transaction = session.beginTransaction();
+            StringBuilder queryStr = new StringBuilder()
+                    .append("select distinct obj from Flight ")
+                    .append("obj left join fetch obj.terminals t ")
+                    .append("where obj.id = :id");
+            Query query = session.createQuery(queryStr.toString());
+            query.setParameter("id", id);
+            flight = (Flight) query.getSingleResult();
+            transaction.commit();
+        } catch (NoResultException e) {
+            throw new NoResultException(new StringBuilder()
+                    .append("Flight with id ")
+                    .append(id)
+                    .append(" does not exist")
+                    .toString());
+        } catch (Exception e) {}
         return Optional.ofNullable(flight);
     }
 }
