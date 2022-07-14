@@ -38,11 +38,8 @@ public class FlightDAOImpl implements FlightDAO {
         Flight flight = null;
         try (Session session = dataBase.getSessionFactory().openSession();) {
             Transaction transaction = session.beginTransaction();
-            StringBuilder queryStr = new StringBuilder()
-                    .append("select distinct obj from Flight ")
-                    .append("obj left join fetch obj.terminals t ")
-                    .append("where obj.id = :id");
-            Query query = session.createQuery(queryStr.toString());
+            String queryStr = "select distinct obj from Flight obj left join fetch obj.terminals t where obj.id = :id";
+            Query query = session.createQuery(queryStr);
             query.setParameter("id", id);
             flight = (Flight) query.getSingleResult();
             transaction.commit();

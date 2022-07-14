@@ -2,15 +2,14 @@ package com.petrov.airport.dao.impl;
 
 import com.petrov.airport.configuration.database.DataBase;
 import com.petrov.airport.dao.TerminalDAO;
-import com.petrov.airport.entity.Flight;
 import com.petrov.airport.entity.Terminal;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,18 +35,21 @@ public class TerminalDAOImpl implements TerminalDAO {
 
     @Override
     public Optional<Terminal> getWithFlights(int id) {
-        Session session = dataBase.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        StringBuilder queryStr = new StringBuilder()
-                .append("select distinct obj from ")
-                .append(Terminal.class.getSimpleName())
-                .append(" obj left join fetch obj.flights f ")
-                .append("where obj.id = :id");
-        Query query = session.createQuery(queryStr.toString());
-        query.setParameter("id", id);
-        Terminal terminal = (Terminal) query.getSingleResult();
-        transaction.commit();
-        session.close();
+        Terminal terminal = null;
+        try (Session session = dataBase.getSessionFactory().openSession();) {
+            Transaction transaction = session.beginTransaction();
+            String queryStr = "select distinct obj from Terminal obj left join fetch obj.flights f where obj.id = :id";
+            Query query = session.createQuery(queryStr);
+            query.setParameter("id", id);
+            terminal = (Terminal) query.getSingleResult();
+            transaction.commit();
+        } catch (NoResultException e) {
+            throw new NoResultException(new StringBuilder()
+                    .append("Terminal with id ")
+                    .append(id)
+                    .append(" does not exist")
+                    .toString());
+        } catch (Exception e) {}
         return Optional.ofNullable(terminal);
     }
 }
