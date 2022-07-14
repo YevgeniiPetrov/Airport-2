@@ -13,6 +13,7 @@
         <module>Flight</module>
         <module>Ticket</module>
         <module>Passenger</module>
+        <module>Terminal</module>
     </modules>
 
     <dependencies>
