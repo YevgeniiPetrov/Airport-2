@@ -24,8 +24,13 @@ public class Flight extends Essence {
     private Boolean removed;
     @Column(name = "terminal_id")
     @ToString.Exclude
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Terminal> terminal;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "terminal_flight",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "terminal_id")
+    )
+    private List<Terminal> terminals;
 
     @Override
     public boolean equals(Object o) {

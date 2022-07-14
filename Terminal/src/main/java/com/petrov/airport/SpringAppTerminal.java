@@ -23,12 +23,12 @@ public class SpringAppTerminal {
         }
         System.out.println(terminalDAO.getWithFlights(2).get().getFlights().size());
 
-//        DataBase<Flight> dataBase1 = new DataBaseImpl<>(sessionFactory);
-//        FlightDAO flightDAO = new FlightDAOImpl(dataBase1);
-//        Flight flight = flightDAO.get(3).get();
-//        System.out.println(flight);
-//        flightDAO.delete(flight);
-//        System.out.println(flightDAO.getAll().size());
-        //System.out.println(flightDAO.getWithTerminals(46).get().getTerminals().size());
+        DataBase<Flight> dataBase1 = new DataBaseImpl<>(sessionFactory);
+        FlightDAO flightDAO = new FlightDAOImpl(dataBase1);
+        Flight flight = flightDAO.get(3).get();
+        System.out.println(flight);
+        flightDAO.delete(flight);
+        System.out.println(flightDAO.getAll().size());
+        System.out.println(flightDAO.getWithTerminals(46).get().getTerminals().size());
     }
 }
