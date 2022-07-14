@@ -41,6 +41,6 @@ public class PassengerControllerImpl implements PassengerController {
     @Override
     @GetMapping("/passenger/get/terminal")
     public List<ResponsePassengerDTO> getAllByTerminal(@RequestParam int id) {
-        return ;
+        return passengerService.getAllByTerminal(id);
     }
 }
