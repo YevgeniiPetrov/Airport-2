@@ -6,7 +6,8 @@ import com.petrov.airport.entity.Passenger;
 import com.petrov.airport.repository.PassengerRepository;
 import com.petrov.airport.service.PassengerService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,19 +17,6 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class PassengerServiceImpl implements PassengerService {
-    private abstract class ServerResponse<T> {
-        private String responseCode;
-        private String responseMessage;
-        private T responseData;
-
-        public T getResponseData() {
-            return responseData;
-        }
-    }
-
-    private class ServerResponseData extends ServerResponse<List<Integer>> {
-    }
-
     private PassengerRepository passengerRepository;
     private PassengerMapper passengerMapper;
     private ResponseCompleted responseCompleted;
@@ -64,10 +52,14 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public List<ResponsePassengerDTO> getAllByTerminal(int id) {
-        ResponseEntity<ServerResponseData> flightIdsResponseEntity = restTemplate.getForEntity(
-                "http://localhost:8084/terminal/flights/get?id=" + id, ServerResponseData.class);
-        ServerResponseData serverResponseData = flightIdsResponseEntity.getBody();
-        System.out.println(serverResponseData.getResponseData());
+        List<Integer> flightIds = getForEntity(
+                "http://localhost:8084/terminal/flights/get?id=" + id,
+                new ParameterizedTypeReference<List<Integer>>() {});
+        System.out.println(flightIds);
         return null;
+    }
+
+    private <T> List<T> getForEntity(String url, ParameterizedTypeReference<List<T>> parameterizedTypeReference) {
+        return restTemplate.exchange(url, HttpMethod.GET, null, parameterizedTypeReference).getBody();
     }
 }
