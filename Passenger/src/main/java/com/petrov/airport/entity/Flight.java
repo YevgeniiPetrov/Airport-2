@@ -22,7 +22,7 @@ public class Flight extends Essence {
     @Transient
     @ToString.Exclude
     private Boolean removed;
-    @Column(name = "terminal_id")
+    @Column(name = "passenger_id")
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(

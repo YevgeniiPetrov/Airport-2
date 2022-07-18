@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +27,14 @@ public class Passenger extends Essence {
     private Integer passport;
     @ToString.Exclude
     private Boolean removed;
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "passenger_flight",
+            joinColumns = @JoinColumn(name = "passenger_id"),
+            inverseJoinColumns = @JoinColumn(name = "flight_id")
+    )
+    private List<Flight> flights;
 
     @Override
     public boolean equals(Object o) {
