@@ -7,6 +7,8 @@ import com.petrov.airport.repository.PassengerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @AllArgsConstructor
 public class PassengerRepositoryImpl implements PassengerRepository {
@@ -15,5 +17,10 @@ public class PassengerRepositoryImpl implements PassengerRepository {
     @Override
     public GenericDAO<Passenger> getGenericDAO() {
         return passengerDAO;
+    }
+
+    @Override
+    public List<Passenger> getAllByFlightIds(List<Integer> ids) {
+        return passengerDAO.getAllByFlightIds(ids);
     }
 }

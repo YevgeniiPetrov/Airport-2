@@ -35,8 +35,9 @@ public class PassengerDAOImpl implements PassengerDAO {
         List<Passenger> passengers;
         try (Session session = dataBase.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
-            String queryStr = "select distinct obj from Passenger left join fetch obj.flights f where f.id in :ids";
-            Query query = session.createQuery(queryStr.toString());
+            String queryStr = "select distinct obj from Passenger obj left join fetch obj.flights f where f.id in :ids";
+            Query query = session.createQuery(queryStr);
+            query.setParameter("ids", ids);
             passengers = query.getResultList();
             transaction.commit();
         } catch (Exception e) {
