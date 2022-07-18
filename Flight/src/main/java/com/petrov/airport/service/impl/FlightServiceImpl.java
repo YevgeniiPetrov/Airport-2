@@ -9,6 +9,7 @@ import com.petrov.airport.entity.Flight;
 import com.petrov.airport.repository.FlightRepository;
 import com.petrov.airport.service.FlightService;
 import lombok.AllArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -64,5 +66,20 @@ public class FlightServiceImpl implements FlightService {
         flight.setDeparture(requestFlightChangeDeparture.getDeparture());
         flightRepository.update(flight);
         return responseCompleted;
+    }
+
+    @Override
+    public List<ResponseFlightDTO> getAllByTerminal(int id) {
+        return getForEntity(
+                "http://localhost:8084/terminal/flights/get?id=" + id,
+                new ParameterizedTypeReference<List<Integer>>() {}).stream()
+                .map(flightRepository::get)
+                .map(Optional::get)
+                .map(flightMapper::flightToMap)
+                .collect(Collectors.toList());
+    }
+
+    private <T> List<T> getForEntity(String url, ParameterizedTypeReference<List<T>> parameterizedTypeReference) {
+        return restTemplate.exchange(url, HttpMethod.GET, null, parameterizedTypeReference).getBody();
     }
 }

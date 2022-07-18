@@ -45,4 +45,10 @@ public class FlightControllerImpl implements FlightController {
     public ResponseCompleted update(@RequestBody @Valid RequestFlightChangeDeparture requestFlightChangeDeparture) {
         return flightService.update(requestFlightChangeDeparture);
     }
+
+    @Override
+    @GetMapping("/flight/get/terminal")
+    public List<ResponseFlightDTO> getAllByTerminal(@RequestParam int id) {
+        return flightService.getAllByTerminal(id);
+    }
 }
