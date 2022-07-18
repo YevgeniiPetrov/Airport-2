@@ -16,7 +16,6 @@ import java.util.Optional;
 public class PassengerDAOImpl implements PassengerDAO {
     private DataBase<Passenger> dataBase;
 
-
     @Override
     public Optional<Passenger> get(int id) {
         return dataBase.get(id, Passenger.class);
@@ -25,5 +24,10 @@ public class PassengerDAOImpl implements PassengerDAO {
     @Override
     public List<Passenger> getAll() {
         return dataBase.getAll(Passenger.class);
+    }
+
+    @Override
+    public List<Passenger> getAllByFlightIds(List<Integer> ids) {
+        return null;
     }
 }
