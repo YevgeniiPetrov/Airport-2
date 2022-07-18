@@ -15,4 +15,5 @@ public interface FlightService {
     ResponseCompleted delete(Flight flight);
     ResponseCompleted delete(RequestEntityDTO requestEntityDTO);
     ResponseCompleted update(RequestFlightChangeDeparture requestFlightChangeDeparture);
+    List<ResponseFlightDTO> getAllByTerminal(int id);
 }

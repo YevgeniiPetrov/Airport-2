@@ -18,4 +18,5 @@ public interface FlightController {
                                                    @RequestParam @NotNull LocalDateTime dateTo);
     ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO);
     ResponseCompleted update(@RequestBody @Valid RequestFlightChangeDeparture requestFlightChangeDeparture);
+    List<ResponseFlightDTO> getAllByTerminal(@RequestParam int id);
 }
