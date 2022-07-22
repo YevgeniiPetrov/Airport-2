@@ -1,7 +1,6 @@
 package com.petrov.airport.service.impl;
 
 import com.petrov.airport.dto.*;
-import com.petrov.airport.dto.mapper.EntityMapper;
 import com.petrov.airport.dto.mapper.PassengerMapper;
 import com.petrov.airport.entity.Passenger;
 import com.petrov.airport.repository.PassengerRepository;
