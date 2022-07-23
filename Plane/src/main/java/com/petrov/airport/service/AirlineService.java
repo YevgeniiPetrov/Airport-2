@@ -1,7 +1,7 @@
 package com.petrov.airport.service;
 
-import com.petrov.airport.dto.ResponseEntityDTO;
+import com.petrov.airport.dto.ResponseAirlineDTO;
 
 public interface AirlineService {
-    ResponseEntityDTO get(int id);
+    ResponseAirlineDTO get(int id);
 }

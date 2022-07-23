@@ -19,6 +19,10 @@ public class Airline extends Essence {
     @Column(name = "airline_id")
     private Integer id;
     @Transient
+    private String title;
+    @Transient
+    private Double rating;
+    @Transient
     @ToString.Exclude
     private Boolean removed;
     @ToString.Exclude
