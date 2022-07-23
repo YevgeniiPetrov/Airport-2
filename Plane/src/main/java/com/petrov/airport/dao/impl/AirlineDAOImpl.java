@@ -3,7 +3,6 @@ package com.petrov.airport.dao.impl;
 import com.petrov.airport.configuration.database.DataBase;
 import com.petrov.airport.dao.AirlineDAO;
 import com.petrov.airport.entity.Airline;
-import com.petrov.airport.entity.Plane;
 import lombok.AllArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
