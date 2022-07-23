@@ -19,7 +19,7 @@ public class Plane extends Essence {
     private String title;
     @ToString.Exclude
     private Boolean removed;
-    @Column(name = "airline_id")
+    @ManyToOne(targetEntity = Airline.class)
     private Airline airline;
 
     @Override

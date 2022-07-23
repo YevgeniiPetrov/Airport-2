@@ -2,14 +2,23 @@ package com.petrov.airport.entity;
 
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 @Getter
+@Setter
 @ToString
 @AllArgsConstructor
-public class Airline {
+@NoArgsConstructor
+@Table(name = "plane")
+public class Airline extends Essence {
+    @Id
     @Setter(AccessLevel.NONE)
     private Integer id;
+    @Transient
+    @ToString.Exclude
+    private Boolean removed;
 
     @Override
     public boolean equals(Object o) {
