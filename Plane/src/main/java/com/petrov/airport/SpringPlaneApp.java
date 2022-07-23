@@ -23,6 +23,7 @@ public class SpringPlaneApp {
 
         DataBase<Airline> dataBase1 = new DataBaseImpl<>(config.getSessionFactory());
         AirlineDAO airlineDAO = new AirlineDAOImpl(dataBase1);
-        System.out.println(airlineDAO.get(6));
+        System.out.println(airlineDAO.getWithPlanes(6).get().getPlanes());
+        System.out.println(airlineDAO.get(2).get());
     }
 }

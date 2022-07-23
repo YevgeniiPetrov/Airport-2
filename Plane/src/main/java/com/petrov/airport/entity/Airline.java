@@ -22,12 +22,8 @@ public class Airline extends Essence {
     @ToString.Exclude
     private Boolean removed;
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "plane",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "airline_id")
-    )
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "airline_id")
     private List<Plane> planes;
 
     @Override
