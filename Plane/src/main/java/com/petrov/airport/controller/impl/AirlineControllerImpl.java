@@ -16,6 +16,6 @@ public class AirlineControllerImpl implements AirlineController {
     @Override
     @GetMapping("/airline/get")
     public ResponseAirlineDTO get(@RequestParam int id) {
-        return airlineService.get(id);
+        return airlineService.getResponseAirlineDTO(id);
     }
 }

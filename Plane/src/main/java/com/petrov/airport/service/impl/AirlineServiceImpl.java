@@ -16,9 +16,14 @@ public class AirlineServiceImpl implements AirlineService {
     private RestTemplate restTemplate;
 
     @Override
-    public ResponseAirlineDTO get(int id) {
+    public Airline get(int id) {
         ResponseEntity<Airline> airlineResponseEntity = restTemplate.getForEntity(
                 "http://localhost:8081/airline/get/?id=" + id, Airline.class);
-        return airlineMapper.airlineToMap(airlineResponseEntity.getBody());
+        return airlineResponseEntity.getBody();
+    }
+
+    @Override
+    public ResponseAirlineDTO getResponseAirlineDTO(int id) {
+        return airlineMapper.airlineToMap(get(id));
     }
 }
