@@ -3,24 +3,28 @@ package com.petrov.airport.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Builder
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Plane extends Essence {
+@Table(name = "plane")
+public class Airline extends Essence {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    @Column(name = "airline_id")
     private Integer id;
-    private String title;
+    @Transient
     @ToString.Exclude
     private Boolean removed;
-    @Column(name = "airline_id")
-    private Integer airlineId;
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "airline_id")
+    private List<Plane> planes;
 
     @Override
     public boolean equals(Object o) {
@@ -30,8 +34,8 @@ public class Plane extends Essence {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Plane plane = (Plane) o;
-        return Objects.equals(id, plane.id);
+        Airline airline = (Airline) o;
+        return Objects.equals(id, airline.id);
     }
 
     @Override
