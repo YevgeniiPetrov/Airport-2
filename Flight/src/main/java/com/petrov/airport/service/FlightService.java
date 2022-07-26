@@ -1,9 +1,6 @@
 package com.petrov.airport.service;
 
-import com.petrov.airport.dto.RequestEntityDTO;
-import com.petrov.airport.dto.RequestFlightChangeDeparture;
-import com.petrov.airport.dto.ResponseCompleted;
-import com.petrov.airport.dto.ResponseFlightDTO;
+import com.petrov.airport.dto.*;
 import com.petrov.airport.entity.Flight;
 
 import java.time.LocalDateTime;
@@ -16,4 +13,5 @@ public interface FlightService {
     ResponseCompleted delete(RequestEntityDTO requestEntityDTO);
     ResponseCompleted update(RequestFlightChangeDeparture requestFlightChangeDeparture);
     List<ResponseFlightDTO> getAllByTerminal(int id);
+    ResponseFlightWithAirlinesDTO getWithAirlines(int id);
 }
