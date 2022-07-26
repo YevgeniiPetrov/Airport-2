@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,13 @@ public class Flight extends Essence {
     private Route route;
     @ManyToOne(targetEntity = State.class)
     private State state;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "flight_airline",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "airline_id")
+    )
+    private List<Airline> airlines;
 
     @Override
     public boolean equals(Object o) {

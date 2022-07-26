@@ -1,10 +1,7 @@
 package com.petrov.airport.controller.impl;
 
 import com.petrov.airport.controller.FlightController;
-import com.petrov.airport.dto.RequestEntityDTO;
-import com.petrov.airport.dto.RequestFlightChangeDeparture;
-import com.petrov.airport.dto.ResponseCompleted;
-import com.petrov.airport.dto.ResponseFlightDTO;
+import com.petrov.airport.dto.*;
 import com.petrov.airport.service.FlightService;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -50,5 +47,11 @@ public class FlightControllerImpl implements FlightController {
     @GetMapping("/flight/get/terminal")
     public List<ResponseFlightDTO> getAllByTerminal(@RequestParam int id) {
         return flightService.getAllByTerminal(id);
+    }
+
+    @Override
+    @GetMapping("/flight/getWithAirlines")
+    public ResponseFlightWithAirlinesDTO getWithAirlines(int id) {
+        return flightService.getWithAirlines(id);
     }
 }

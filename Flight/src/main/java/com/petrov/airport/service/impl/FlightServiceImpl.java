@@ -1,9 +1,6 @@
 package com.petrov.airport.service.impl;
 
-import com.petrov.airport.dto.RequestEntityDTO;
-import com.petrov.airport.dto.RequestFlightChangeDeparture;
-import com.petrov.airport.dto.ResponseCompleted;
-import com.petrov.airport.dto.ResponseFlightDTO;
+import com.petrov.airport.dto.*;
 import com.petrov.airport.dto.mapper.FlightMapper;
 import com.petrov.airport.entity.Flight;
 import com.petrov.airport.repository.FlightRepository;
@@ -77,6 +74,11 @@ public class FlightServiceImpl implements FlightService {
                 .map(Optional::get)
                 .map(flightMapper::flightToMap)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseFlightWithAirlinesDTO getWithAirlines(int id) {
+        return flightMapper.flightWithAirlinesToMap(flightRepository.getWithAirlines(id).get());
     }
 
     private <T> List<T> getForEntity(String url, ParameterizedTypeReference<List<T>> parameterizedTypeReference) {

@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,5 +60,28 @@ public class FlightDAOImpl implements FlightDAO {
         return getAll().stream()
                 .filter(flight -> flight.getId().equals(route.getId()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Flight> getWithAirlines(int id) {
+        Flight flight = null;
+        try (Session session = dataBase.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+            String queryStr = "select distinct obj from Flight obj left join fetch obj.airlines a where obj.id = :id";
+            Query query = session.createQuery(queryStr);
+            query.setParameter("id", id);
+            flight = (Flight) query.getSingleResult();
+            transaction.commit();
+        } catch (NoResultException e) {
+            throw new NoResultException(new StringBuilder()
+                    .append(Flight.class.getSimpleName())
+                    .append(" with id ")
+                    .append(id)
+                    .append(" does not exist")
+                    .toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Optional.ofNullable(flight);
     }
 }
