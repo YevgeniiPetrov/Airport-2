@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
@@ -29,5 +30,10 @@ public class FlightRepositoryImpl implements FlightRepository {
     @Override
     public List<Flight> getAllByRoute(Route route) {
         return flightDAO.getAllByRoute(route);
+    }
+
+    @Override
+    public Optional<Flight> getWithAirlines(int id) {
+        return flightDAO.getWithAirlines(id);
     }
 }
