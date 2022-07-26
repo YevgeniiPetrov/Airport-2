@@ -1,9 +1,6 @@
 package com.petrov.airport.controller;
 
-import com.petrov.airport.dto.RequestEntityDTO;
-import com.petrov.airport.dto.RequestFlightChangeDeparture;
-import com.petrov.airport.dto.ResponseCompleted;
-import com.petrov.airport.dto.ResponseFlightDTO;
+import com.petrov.airport.dto.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,4 +16,5 @@ public interface FlightController {
     ResponseCompleted delete(@RequestBody @Valid RequestEntityDTO requestEntityDTO);
     ResponseCompleted update(@RequestBody @Valid RequestFlightChangeDeparture requestFlightChangeDeparture);
     List<ResponseFlightDTO> getAllByTerminal(@RequestParam int id);
+    ResponseFlightWithAirlinesDTO getWithAirlines(@RequestParam int id);
 }
