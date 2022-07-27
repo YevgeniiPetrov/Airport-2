@@ -15,6 +15,7 @@
         <module>Passenger</module>
         <module>Terminal</module>
         <module>Plane</module>
+        <module>Employee</module>
     </modules>
 
     <dependencies>
