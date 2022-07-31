@@ -21,4 +21,6 @@ public class RequestEmployeeDTO {
     private String lastName;
     @NotNull
     private LocalDate birthdate;
+    @NotNull
+    private RequestEntityDTO post;
 }
