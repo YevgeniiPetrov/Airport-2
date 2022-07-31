@@ -26,6 +26,8 @@ public class Employee extends Essence {
     private String lastName;
     @Column(name = "birth_date")
     private LocalDate birthdate;
+    @ManyToOne(cascade = CascadeType.ALL, targetEntity = Post.class)
+    private Post post;
 
     @Override
     public boolean equals(Object o) {
