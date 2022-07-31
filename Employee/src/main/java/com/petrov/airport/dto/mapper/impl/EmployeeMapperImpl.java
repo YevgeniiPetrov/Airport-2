@@ -4,13 +4,16 @@ import com.petrov.airport.dto.RequestEmployeeDTO;
 import com.petrov.airport.dto.ResponseEmployeeDTO;
 import com.petrov.airport.dto.impl.ResponseEmployeeDTOImpl;
 import com.petrov.airport.dto.mapper.EmployeeMapper;
+import com.petrov.airport.dto.mapper.PostMapper;
 import com.petrov.airport.entity.Employee;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeMapperImpl implements EmployeeMapper {
+    private PostMapper postMapper;
+
     @Override
     public ResponseEmployeeDTO employeeToMap(Employee employee) {
         return ResponseEmployeeDTOImpl.builder()
@@ -27,6 +30,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
                 .firstName(requestEmployeeDTO.getFirstName())
                 .lastName(requestEmployeeDTO.getLastName())
                 .birthdate(requestEmployeeDTO.getBirthdate())
+                .post(postMapper.mapToPost(requestEmployeeDTO.getPost()))
                 .build();
     }
 }
