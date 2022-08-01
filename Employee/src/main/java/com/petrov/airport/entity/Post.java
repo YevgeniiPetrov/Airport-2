@@ -23,6 +23,7 @@ public class Post extends Essence {
     @ToString.Exclude
     private Boolean removed;
     private String title;
+    private Integer salary;
 
     @Override
     public boolean equals(Object o) {
