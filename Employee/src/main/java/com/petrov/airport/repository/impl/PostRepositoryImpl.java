@@ -7,6 +7,8 @@ import com.petrov.airport.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @AllArgsConstructor
 public class PostRepositoryImpl implements PostRepository {
@@ -15,5 +17,10 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public GenericDAO<Post> getGenericDAO() {
         return postDAO;
+    }
+
+    @Override
+    public Optional<Post> getWithEmployees(int id) {
+        return postDAO.getWithEmployees(id);
     }
 }
