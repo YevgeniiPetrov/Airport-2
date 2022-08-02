@@ -2,10 +2,8 @@ package com.petrov.airport.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +22,9 @@ public class Post extends Essence {
     private Boolean removed;
     private String title;
     private Integer salary;
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Employee> employees;
 
     @Override
     public boolean equals(Object o) {
