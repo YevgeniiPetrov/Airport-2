@@ -38,14 +38,14 @@ public class PostDAOImpl implements PostDAO {
         Post post = null;
         try (Session session = dataBase.getSessionFactory().openSession();) {
             Transaction transaction = session.beginTransaction();
-            String queryStr = "select distinct obj from Terminal obj left join fetch obj.flights f where obj.id = :id";
+            String queryStr = "select distinct obj from Post obj left join fetch obj.employees e where obj.id = :id";
             Query query = session.createQuery(queryStr);
             query.setParameter("id", id);
             post = (Post) query.getSingleResult();
             transaction.commit();
         } catch (NoResultException e) {
             throw new NoResultException(new StringBuilder()
-                    .append("Terminal with id ")
+                    .append("Post with id ")
                     .append(id)
                     .append(" does not exist")
                     .toString());
