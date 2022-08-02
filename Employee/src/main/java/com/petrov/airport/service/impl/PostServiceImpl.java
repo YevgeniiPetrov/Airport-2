@@ -3,6 +3,7 @@ package com.petrov.airport.service.impl;
 import com.petrov.airport.dto.RequestPostDTO;
 import com.petrov.airport.dto.ResponseCompleted;
 import com.petrov.airport.dto.ResponsePostDTO;
+import com.petrov.airport.dto.ResponsePostWithEmployeesDTO;
 import com.petrov.airport.dto.mapper.PostMapper;
 import com.petrov.airport.repository.PostRepository;
 import com.petrov.airport.service.PostService;
@@ -25,5 +26,10 @@ public class PostServiceImpl implements PostService {
     public ResponseCompleted add(RequestPostDTO requestPostDTO) {
         postRepository.add(postMapper.mapToPost(requestPostDTO));
         return responseCompleted;
+    }
+
+    @Override
+    public ResponsePostWithEmployeesDTO getWithEmployees(int id) {
+        return postMapper.postWithEmployeesToMap(postRepository.getWithEmployees(id).get());
     }
 }
