@@ -5,18 +5,13 @@ import com.petrov.airport.dto.ResponseAirlineWithPlanesDTO;
 import com.petrov.airport.dto.impl.ResponseAirlineDTOImpl;
 import com.petrov.airport.dto.impl.ResponseAirlineWithPlanesDTOImpl;
 import com.petrov.airport.dto.mapper.AirlineMapper;
-import com.petrov.airport.dto.mapper.PlaneMapper;
 import com.petrov.airport.entity.Airline;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@NoArgsConstructor
-@Setter
+@AllArgsConstructor
 public class AirlineMapperImpl implements AirlineMapper {
-    private PlaneMapper planeMapper;
-
     @Override
     public ResponseAirlineDTO airlineToMap(Airline airline) {
         return ResponseAirlineDTOImpl.builder()
