@@ -3,6 +3,7 @@ package com.petrov.airport.service.impl;
 import com.petrov.airport.dto.ResponseAirlineDTO;
 import com.petrov.airport.dto.ResponseAirlineWithPlanesDTO;
 import com.petrov.airport.dto.mapper.AirlineMapper;
+import com.petrov.airport.dto.mapper.PlaneMapper;
 import com.petrov.airport.entity.Airline;
 import com.petrov.airport.repository.AirlineRepository;
 import com.petrov.airport.service.AirlineService;
@@ -11,12 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class AirlineServiceImpl implements AirlineService {
-    public AirlineMapper airlineMapper;
+    private AirlineMapper airlineMapper;
     private RestTemplate restTemplate;
     private AirlineRepository airlineRepository;
+    private PlaneMapper planeMapper;
 
     @Override
     public Airline get(int id) {
@@ -27,7 +31,13 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public ResponseAirlineWithPlanesDTO getWithPlanes(int id) {
-        return airlineMapper.airlineWithPlanesToMap(airlineRepository.getWithPlanes(id).get());
+        Airline airline = airlineRepository.getWithPlanes(id).get();
+        ResponseAirlineWithPlanesDTO airlineWithPlanesDTO =
+                airlineMapper.airlineWithPlanesToMap(airline);
+        airlineWithPlanesDTO.setPlanes(airline.getPlanes().stream()
+                .map(planeMapper::planeToMap)
+                .collect(Collectors.toList()));
+        return airlineWithPlanesDTO;
     }
 
     @Override
