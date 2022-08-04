@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class AirlineServiceImpl implements AirlineService {
@@ -20,6 +22,11 @@ public class AirlineServiceImpl implements AirlineService {
         ResponseEntity<Airline> airlineResponseEntity = restTemplate.getForEntity(
                 "http://localhost:8081/airline/get/?id=" + id, Airline.class);
         return airlineResponseEntity.getBody();
+    }
+
+    @Override
+    public Optional<Airline> getWithPlanes(int id) {
+        return Optional.empty();
     }
 
     @Override
