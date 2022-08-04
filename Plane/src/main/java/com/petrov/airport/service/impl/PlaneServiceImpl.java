@@ -11,6 +11,7 @@ import com.petrov.airport.service.PlaneService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,5 +33,10 @@ public class PlaneServiceImpl implements PlaneService {
         Airline airline = airlineService.get(plane.getAirline().getId());
         plane.setAirline(airline);
         return planeMapper.planeWithAirlineToMap(plane);
+    }
+
+    @Override
+    public List<ResponsePlaneDTO> getAllByAirline(int airlineId) {
+        return null;
     }
 }
