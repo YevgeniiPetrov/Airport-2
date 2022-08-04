@@ -1,6 +1,7 @@
 package com.petrov.airport.dto.mapper.impl;
 
 import com.petrov.airport.dto.ResponseAirlineDTO;
+import com.petrov.airport.dto.ResponseAirlineWithPlanesDTO;
 import com.petrov.airport.dto.impl.ResponseAirlineDTOImpl;
 import com.petrov.airport.dto.impl.ResponseAirlineWithPlanesDTOImpl;
 import com.petrov.airport.dto.mapper.AirlineMapper;
@@ -26,7 +27,7 @@ public class AirlineMapperImpl implements AirlineMapper {
     }
 
     @Override
-    public ResponseAirlineWithPlanesDTOImpl airlineWithPlanesToMap(Airline airline) {
+    public ResponseAirlineWithPlanesDTO airlineWithPlanesToMap(Airline airline) {
         return ResponseAirlineWithPlanesDTOImpl.builder()
                 .id(airline.getId())
                 .title(airline.getTitle())
