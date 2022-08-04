@@ -2,6 +2,7 @@ package com.petrov.airport.controller.impl;
 
 import com.petrov.airport.controller.AirlineController;
 import com.petrov.airport.dto.ResponseAirlineDTO;
+import com.petrov.airport.dto.ResponseAirlineWithPlanesDTO;
 import com.petrov.airport.service.AirlineService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,5 +18,11 @@ public class AirlineControllerImpl implements AirlineController {
     @GetMapping("/airline/get")
     public ResponseAirlineDTO get(@RequestParam int id) {
         return airlineService.getResponseAirlineDTO(id);
+    }
+
+    @Override
+    @GetMapping("/airline/getWithPlanes")
+    public ResponseAirlineWithPlanesDTO getWithPlanes(int id) {
+        return airlineService.getWithPlanes(id);
     }
 }
