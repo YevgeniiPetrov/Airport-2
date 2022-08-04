@@ -3,6 +3,7 @@ package com.petrov.airport.service.impl;
 import com.petrov.airport.dto.ResponseAirlineDTO;
 import com.petrov.airport.dto.mapper.AirlineMapper;
 import com.petrov.airport.entity.Airline;
+import com.petrov.airport.repository.AirlineRepository;
 import com.petrov.airport.service.AirlineService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class AirlineServiceImpl implements AirlineService {
     public AirlineMapper airlineMapper;
     private RestTemplate restTemplate;
+    private AirlineRepository airlineRepository;
 
     @Override
     public Airline get(int id) {
@@ -26,7 +28,7 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public Optional<Airline> getWithPlanes(int id) {
-        return Optional.empty();
+        return airlineRepository.getWithPlanes(id);
     }
 
     @Override
