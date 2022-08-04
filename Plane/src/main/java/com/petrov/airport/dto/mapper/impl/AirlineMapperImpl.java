@@ -7,13 +7,15 @@ import com.petrov.airport.dto.impl.ResponseAirlineWithPlanesDTOImpl;
 import com.petrov.airport.dto.mapper.AirlineMapper;
 import com.petrov.airport.dto.mapper.PlaneMapper;
 import com.petrov.airport.entity.Airline;
-import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
+@NoArgsConstructor
+@Setter
 public class AirlineMapperImpl implements AirlineMapper {
     private PlaneMapper planeMapper;
 
