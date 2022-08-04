@@ -31,7 +31,10 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public ResponseAirlineWithPlanesDTO getWithPlanes(int id) {
-        Airline airline = get(id);
+        Airline airline = airlineRepository.getWithPlanes(id).get();
+        Airline airlineFromFLightModule = get(id);
+        airline.setTitle(airlineFromFLightModule.getTitle());
+        airline.setRating(airlineFromFLightModule.getRating());
         ResponseAirlineWithPlanesDTO airlineWithPlanesDTO =
                 airlineMapper.airlineWithPlanesToMap(airline);
         airlineWithPlanesDTO.setPlanes(airline.getPlanes().stream()
