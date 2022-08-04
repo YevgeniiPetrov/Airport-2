@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @Component
 @NoArgsConstructor
 @Setter
@@ -34,9 +32,6 @@ public class AirlineMapperImpl implements AirlineMapper {
                 .id(airline.getId())
                 .title(airline.getTitle())
                 .rating(airline.getRating())
-                .planes(airline.getPlanes().stream()
-                        .map(planeMapper::planeToMap)
-                        .collect(Collectors.toList()))
                 .build();
     }
 }
