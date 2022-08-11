@@ -1,5 +1,6 @@
 package com.petrov.airport.configuration.security;
 
+import com.petrov.airport.entity.Permission;
 import com.petrov.airport.entity.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,9 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.GET, "/employee/**").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
-                .antMatchers(HttpMethod.POST, "/employee/**").hasRole(Role.ADMIN.name())
-                .antMatchers(HttpMethod.DELETE, "/employee/**").hasRole(Role.ADMIN.name())
+                .antMatchers(HttpMethod.GET, "/employee/**").hasAuthority(Permission.READ.getPermission())
+                .antMatchers(HttpMethod.POST, "/employee/**").hasAuthority(Permission.WRITE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/employee/**").hasAuthority(Permission.WRITE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -39,12 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 User.builder()
                         .username("admin")
                         .password(passwordEncoder().encode("admin"))
-                        .roles(Role.ADMIN.name())
+                        .authorities(Role.ADMIN.getAuthorities())
                         .build(),
                 User.builder()
                         .username("user")
                         .password(passwordEncoder().encode("user"))
-                        .roles(Role.USER.name())
+                        .authorities(Role.USER.getAuthorities())
                         .build()
         );
     }
