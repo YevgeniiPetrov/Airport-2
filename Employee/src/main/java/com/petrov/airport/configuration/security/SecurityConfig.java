@@ -1,10 +1,9 @@
 package com.petrov.airport.configuration.security;
 
-import com.petrov.airport.entity.Permission;
 import com.petrov.airport.entity.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -23,9 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.GET, "/employee/**").hasAuthority(Permission.READ.getPermission())
-                .antMatchers(HttpMethod.POST, "/employee/**").hasAuthority(Permission.WRITE.getPermission())
-                .antMatchers(HttpMethod.DELETE, "/employee/**").hasAuthority(Permission.WRITE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()
