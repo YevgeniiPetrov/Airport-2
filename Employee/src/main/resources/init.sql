@@ -4,9 +4,9 @@ create database airport_employee;
 
 use airport_employee;
 
-drop table if exists users;
+drop table if exists user;
 
-create table users (
+create table user (
 	id int auto_increment not null,
 	email varchar(255) unique not null,
 	first_name varchar(50) not null,
@@ -42,7 +42,7 @@ create table employee (
 		on delete restrict
 );
 
-insert into users
+insert into user
 	(email, first_name, last_name, password)
 values
 	('yevgenii.petrov@mail.com', 'Yevgenii', 'Petrov', '$2a$12$E4NmY899OUrlaiY6CaGiyeqkRbqRsLP3E0cz25oKulHOrfFY9Ykui'),
