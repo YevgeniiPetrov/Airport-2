@@ -4,6 +4,19 @@ create database airport_employee;
 
 use airport_employee;
 
+drop table if exists users;
+
+create table users (
+	id int auto_increment not null,
+	email varchar(255) unique not null,
+	first_name varchar(50) not null,
+	last_name varchar(100) not null,
+    password varchar(100) not null,
+    role varchar(20) not null default 'USER',
+	removed boolean,
+	primary key(id)
+);
+
 drop table if exists post;
 
 create table post (
@@ -28,6 +41,11 @@ create table employee (
 		on update cascade
 		on delete restrict
 );
+
+insert into users
+	(email, first_name, last_name, password)
+values
+	('admin@email.com', 'admin', 'admin', ' $2a$12$GPQrLV7UFiwMR7Cwpn5FL.lhSki3ZISJrP8T2iSs44tiVB/M9JkBC');
 
 insert into post
 	(title, salary)
