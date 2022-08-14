@@ -10,6 +10,7 @@ import java.util.Objects;
 @Getter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class User extends Essence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,7 @@ public class User extends Essence {
     private String password;
     @Enumerated(value = EnumType.STRING)
     private Role role;
+    @Setter
     @ToString.Exclude
     private Boolean removed;
 

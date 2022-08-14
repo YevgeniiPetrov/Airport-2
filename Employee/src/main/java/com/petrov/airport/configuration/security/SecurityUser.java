@@ -37,13 +37,14 @@ public class SecurityUser implements UserDetails {
     }
 
     public static UserDetails fromUser(User user) {
+        boolean isActive = user.getRemoved() == null || !user.getRemoved();
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                user.getRemoved(),
-                user.getRemoved(),
-                user.getRemoved(),
-                user.getRemoved(),
+                isActive,
+                isActive,
+                isActive,
+                isActive,
                 user.getRole().getAuthorities()
         );
     }
