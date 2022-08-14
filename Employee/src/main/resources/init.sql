@@ -45,7 +45,8 @@ create table employee (
 insert into users
 	(email, first_name, last_name, password)
 values
-	('admin@email.com', 'admin', 'admin', ' $2a$12$GPQrLV7UFiwMR7Cwpn5FL.lhSki3ZISJrP8T2iSs44tiVB/M9JkBC');
+	('yevgenii.petrov@mail.com', 'Yevgenii', 'Petrov', '$2a$12$E4NmY899OUrlaiY6CaGiyeqkRbqRsLP3E0cz25oKulHOrfFY9Ykui'),
+    ('yevhen.petrov@mail.com', 'Yevgen', 'Petrov', '$2a$12$FJ3Gkds47ewwXA2CLGlXGOu63GN7YfcDoDsBQ4/vvSXSUOdyDjBOm');
 
 insert into post
 	(title, salary)
