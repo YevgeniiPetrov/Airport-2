@@ -10,7 +10,7 @@ import java.util.Objects;
 @Getter
 @ToString
 @AllArgsConstructor
-public class User {
+public class User extends Essence {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
