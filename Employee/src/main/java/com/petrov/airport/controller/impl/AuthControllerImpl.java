@@ -1,6 +1,6 @@
 package com.petrov.airport.controller.impl;
 
-import com.petrov.airport.configuration.security.JWTProvider;
+import com.petrov.airport.configuration.security.JwtTokenProvider;
 import com.petrov.airport.controller.AuthController;
 import com.petrov.airport.dto.RequestAuthenticationDTO;
 import com.petrov.airport.entity.User;
@@ -27,7 +27,7 @@ import java.util.Map;
 public class AuthControllerImpl implements AuthController {
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
-    private JWTProvider jwtProvider;
+    private JwtTokenProvider jwtProvider;
 
     @Override
     @PostMapping("/auth/login")
